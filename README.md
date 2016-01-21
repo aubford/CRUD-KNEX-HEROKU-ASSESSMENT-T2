@@ -13,6 +13,7 @@ This is a back end only exercise and you will be sending `json` responses from y
 ## Set Up
 
 ```sh
+npm install -g mocha
 npm install
 nodemon
 ```
