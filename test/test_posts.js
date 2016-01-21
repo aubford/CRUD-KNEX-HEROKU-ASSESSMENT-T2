@@ -33,6 +33,7 @@ describe('Posts CRUD Routes', function() {
       .send(thePost)
       .end(function(err, res){
         res.should.have.status(200);
+        // EXPECTING REDIRECT TO /posts
         res.body.SUCCESS.should.have.length(4);
         done();
       });
@@ -53,11 +54,12 @@ describe('Posts CRUD Routes', function() {
       })
     });
 
-    xit('should GET edit route /posts/:id/edit', function (done) {
+   xit('should GET edit route /posts/:id/edit', function (done) {
       chai.request(server)
       .get('/posts/3/edit')
       .end(function(err, res){
         res.should.have.status(200);
+        res.body.should.be.a('object');
         done();
       });
     });
@@ -67,10 +69,11 @@ describe('Posts CRUD Routes', function() {
         .end(function (err, res) {
           var thePost = res.body.SUCCESS[0];
           chai.request(server)
-          .post('/posts/' + thePost.id)
+          .put('/posts/' + thePost.id)
           .send({ author: '“Coco” Chanel'})
           .end(function(err, response){
             response.should.have.status(200);
+            // EXPECTING REDIRECT TO /posts
             res.body.SUCCESS.should.have.length(3);
             done();
           });
@@ -82,7 +85,7 @@ describe('Posts CRUD Routes', function() {
         .end(function (err, res) {
           var thePost = res.body.SUCCESS[0];
           chai.request(server)
-          .post('/posts/'+thePost.id+'/delete')
+          .delete('/posts/'+thePost.id)
           .end(function(err, response){
             response.should.have.status(200);
             response.body.SUCCESS.should.have.length(2)
